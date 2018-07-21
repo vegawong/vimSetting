@@ -37,7 +37,7 @@ lnif() {
 #check if node & npm is installed
 for i in $REQUIRE
 do
-    command -v $i >/dev/null && continue || { error "$i command not found.Please make sure you have $i installed" }
+    command -v $i >/dev/null && continue || { error "$i command not found.Please make sure you have $i installed"; }
 done
 
 if [ ! -e "$VIM_PATH" ] ; then
