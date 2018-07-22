@@ -3,3 +3,8 @@ bundle/*
 session/*
 init.vim
 .netrwhist
+
+# vimdoc-cn ignore
+doc/*
+plugin/*
+syntax/*
