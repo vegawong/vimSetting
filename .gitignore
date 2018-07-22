@@ -2,3 +2,4 @@ bundle/*
 *.swp
 session/*
 init.vim
+.netrwhist
