@@ -273,3 +273,6 @@ function! XTermPasteBegin()
     return ""
 endfunction
 
+" 映射编辑模式下的左右光标移动跟ecmas一样，跟命令行模式的操作习惯一样
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
