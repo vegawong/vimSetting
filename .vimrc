@@ -85,7 +85,7 @@
 
 
 " Formatting {
-   " set nowrap " Do not wrap long lines
+    set nowrap " Do not wrap long lines
     set smartindent " 设置自动缩进并智能根据{}等符号缩进
     set shiftwidth=4 " 层级缩进宽度4列/空格
     set expandtab  " 用空格代替制表符

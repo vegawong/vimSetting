@@ -52,7 +52,12 @@
     Plug 'ctrlpvim/ctrlp.vim'
 
     Plug 'raimondi/delimitmate' " 自动补全成对符号 
-    
+ 
+    Plug 'mattn/emmet-vim'   
+
+    " typescript
+    " syntax file & tsserver
+    Plug 'HerringtonDarkholme/yats.vim' | Plug 'Quramy/tsuquyomi' | Plug 'tasn/vim-tsx'
 
     call plug#end()
 " }
@@ -119,6 +124,7 @@
         let delimitMate_expand_cr = 1 
         let delimitMate_expand_space = 1
     endif
+
 
 " }
 
