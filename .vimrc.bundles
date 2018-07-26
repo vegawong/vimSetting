@@ -1,0 +1,124 @@
+
+" Environment {
+
+    " Basics {
+        set nocompatible        " Must be first line
+        set background=dark     " Assume a dark background
+    " }
+
+    " Windows Compatible {
+        " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
+        " across (heterogeneous) systems easier.
+        if has('win32') || has('win64')
+          set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+
+          " Be nice and check for multi_byte even if the config requires
+          " multi_byte support most of the time
+          if has("multi_byte")
+            " Windows cmd.exe still uses cp850. If Windows ever moved to
+            " Powershell as the primary terminal, this would be utf-8
+            set termencoding=cp850
+            " Let Vim use utf-8 internally, because many scripts require this
+            set encoding=utf-8
+            setglobal fileencoding=utf-8
+            " Windows has traditionally used cp1252, so it's probably wise to
+            " fallback into cp1252 instead of eg. iso-8859-15.
+            " Newer Windows files might contain utf-8 or utf-16 LE so we might
+            " want to try them first.
+            set fileencodings=ucs-bom,utf-8,utf-16le,cp1252,iso-8859-15
+          endif
+        endif
+    " }
+
+    let mapleader = ','
+    let g:mapleader = ','
+    let s:vim8 = has('patch-8.0.0039') && exists('*job_start')
+
+" }
+
+
+" Plugins {
+    call plug#begin('~/.vim/plugged')
+
+    Plug 'yianwillis/vimcdoc'
+
+    Plug 'altercation/vim-colors-solarized'
+    
+    Plug 'scrooloose/nerdtree'
+    Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+    Plug 'ctrlpvim/ctrlp.vim'
+
+    Plug 'raimondi/delimitmate' " 自动补全成对符号 
+    
+
+    call plug#end()
+" }
+
+
+" Plugin Settings {
+
+    "------------------------------------
+    " altercation/vim-colors-solarized
+    "------------------------------------
+    if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/plugged/vim-colors-solarized/colors/solarized.vim"))
+        let g:solarized_termcolors=256
+        let g:solarized_termtrans=1
+        let g:solarized_contrast="normal"
+        let g:solarized_visibility="normal"
+        color solarized             " Load a colorscheme
+    endif
+
+
+    "----------------------------------------
+    " scrooloose/nerdtree
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/nerdtree"))
+        autocmd StdinReadPre * let s:std_in=1
+        autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif       
+
+        nnoremap <leader>e :NERDTreeToggle<CR>
+        nnoremap <c-o> :NERDTreeFind<CR>
+
+        let NERDTreeShowBookmarks=1
+        let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+        let NERDTreeChDirMode=0
+        let NERDTreeQuitOnOpen=1
+        let NERDTreeMouseMode=2
+        let NERDTreeShowHidden=1
+        let NERDTreeKeepTreeInNewTab=1
+        let g:nerdtree_tabs_open_on_gui_startup=0
+
+    endif
+
+
+    "----------------------------------------
+    " vim-airline 
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/vim-airline"))
+        let g:airline_powerline_fonts = 1  " 开启特殊符号
+        let g:airline#extensions#tabline#enabled = 1 " 开启tab名称显示
+        let g:airline#extensions#tabline#formatter = 'unique_tail' " 更改tabName显示格式, 同名时显示唯一区分
+        let g:airline#extensions#tabline#buffer_nr_show = 1
+    endif
+
+    "----------------------------------------
+    " vim-airline-themes
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/vim-airline-themes"))
+        let g:airline_soarized_bg='dark'
+        let g:airline_theme='solarized'
+    endif
+
+    "----------------------------------------
+    " raimondi/delimitmate
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/delimitmate"))
+        let delimitMate_expand_cr = 1 
+        let delimitMate_expand_space = 1
+    endif
+
+" }
+
