@@ -59,6 +59,8 @@
     " syntax file & tsserver
     Plug 'HerringtonDarkholme/yats.vim' | Plug 'Quramy/tsuquyomi' | Plug 'tasn/vim-tsx'
 
+    Plug 'scrooloose/nerdcommenter'
+
     call plug#end()
 " }
 
@@ -123,6 +125,13 @@
     if isdirectory(expand("~/.vim/plugged/delimitmate"))
         let delimitMate_expand_cr = 1 
         let delimitMate_expand_space = 1
+    endif
+
+    "----------------------------------------
+    " scrooloose/nerdcommenter
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/nerdcommenter"))
+        let g:NERDSpaceDelims = 1
     endif
 
 
