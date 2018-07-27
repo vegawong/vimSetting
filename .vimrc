@@ -42,8 +42,8 @@
 " }
 
 " Use bundles config {
-    if filereadable(expand("~/.vimrc.bundles"))
-        source ~/.vimrc.bundles
+    if filereadable(expand("~/.vim/.vimrc.bundles"))
+        source ~/.vim/.vimrc.bundles
     endif
 " }
 
