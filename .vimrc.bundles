@@ -49,6 +49,7 @@
     Plug 'dyng/ctrlsf.vim'
 
     Plug 'raimondi/delimitmate' " 自动补全成对符号 
+    Plug 'tpope/vim-surround'
  
     Plug 'mattn/emmet-vim'   
 
