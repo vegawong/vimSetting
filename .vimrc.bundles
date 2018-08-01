@@ -42,15 +42,15 @@
     
     Plug 'scrooloose/nerdtree'
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-
+    
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dyng/ctrlsf.vim'
-
+    
     Plug 'raimondi/delimitmate' " 自动补全成对符号 
     Plug 'tpope/vim-surround'
- 
+    Plug 'alvan/vim-closetag' 
     Plug 'mattn/emmet-vim'   
 
     " typescript
@@ -146,6 +146,7 @@
     if isdirectory(expand("~/.vim/plugged/delimitmate"))
         let delimitMate_expand_cr = 1 
         let delimitMate_expand_space = 1
+        let delimitMate_matchpairs = "(:),[:],{:}"        
     endif
 
     "----------------------------------------
@@ -170,10 +171,22 @@
         let g:ctrlp_show_hidden=1
     endif
 
+    "----------------------------------------
+    " ctrlsf
+    "----------------------------------------
     if isdirectory(expand("~/.vim/plugged/ctrlsf.vim"))
         " 要先安装ag, https://github.com/ggreer/the_silver_searcher
         let g:ctrlsf_ackprg = 'ag'
     endif
+
+    "----------------------------------------
+    " closetag
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/vim-closetag"))
+        let g:closetag_filetypes="xml,html,phtml,ejs,php,typescriptreact,javascriptreact"
+    endif
+
+    
 
 " }
 
