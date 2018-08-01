@@ -46,16 +46,28 @@
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
     Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'dyng/ctrlsf.vim'
 
     Plug 'raimondi/delimitmate' " 自动补全成对符号 
  
     Plug 'mattn/emmet-vim'   
 
     " typescript
-    " syntax file & tsserver
-    Plug 'HerringtonDarkholme/yats.vim' | Plug 'Quramy/tsuquyomi' | Plug 'tasn/vim-tsx'
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
+    " REQUIRED: Add a syntax file. YATS is the best
+    Plug 'HerringtonDarkholme/yats.vim'
+    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+    " For async completion
+    if has('nvim')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    else
+       Plug 'Shougo/deoplete.nvim'
+       Plug 'roxma/nvim-yarp'
+       Plug 'roxma/vim-hug-neovim-rpc'
+    endif
+    " For Denite features
+     Plug 'Shougo/denite.nvim'
 
+     
     " 快速注释
     Plug 'scrooloose/nerdcommenter'
 
@@ -155,6 +167,11 @@
     if isdirectory(expand("~/.vim/plugged/ctrlp.vim"))
         let g:ctrlp_working_path_mode = 'ra'
         let g:ctrlp_show_hidden=1
+    endif
+
+    if isdirectory(expand("~/.vim/plugged/ctrlsf.vim"))
+        " 要先安装ag, https://github.com/ggreer/the_silver_searcher
+        let g:ctrlsf_ackprg = 'ag'
     endif
 
 " }
