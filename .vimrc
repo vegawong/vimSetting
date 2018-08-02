@@ -93,11 +93,11 @@
     nmap <leader>0 :10b<CR>
 
     " 复制选择内容到系统剪切板
-    map <leader>y "+y
+    map <leader><C-C> "+y
     " 复制当前行的内容到系统剪切板
-    map <leader>yy "+yy
+    map <leader><C-C><C-C> "+yy
     " 将系统剪切板里面的内容粘贴到当前光标
-    nmap <leader>p "+p
+    nmap <leader><C-V> "+p
     nmap <leader>WQ :wa<CR>:q<CR>
     
 
