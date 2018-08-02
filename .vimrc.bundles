@@ -181,6 +181,13 @@
         let g:closetag_filetypes="xml,html,phtml,ejs,php,typescriptreact,javascriptreact"
     endif
 
+    "----------------------------------------
+    " deoplete.nvim
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/deoplete.nvim"))
+        let g:deoplete#enable_at_startup = 1
+    endif
+
     
 
 " }
