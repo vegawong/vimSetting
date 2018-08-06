@@ -39,6 +39,9 @@
     " colorscheme
     Plug 'altercation/vim-colors-solarized'
     Plug 'joshdick/onedark.vim'
+
+    " screen
+    Plug 'mhinz/vim-startify'
     
     Plug 'scrooloose/nerdtree'
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
@@ -105,7 +108,8 @@
     "----------------------------------------
     if isdirectory(expand("~/.vim/plugged/nerdtree"))
         autocmd StdinReadPre * let s:std_in=1
-        autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif       
+        " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | Startify | exe 'NERDTree' argv()[0] | wincmd p | ene | endif       
+        autocmd VimEnter * if !argc() | Startify | NERDTree | wincmd w | endif
 
         " 切换NERDTree显示，速记：file list
         nnoremap <leader>fl :NERDTreeToggle<CR>
@@ -186,6 +190,33 @@
     "----------------------------------------
     if isdirectory(expand("~/.vim/plugged/deoplete.nvim"))
         let g:deoplete#enable_at_startup = 1
+    endif
+
+    "----------------------------------------
+    " startify
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/"))
+        let g:startify_custom_header = [
+		    \ '                                                                 ', 
+		    \ '         _______ _       ______  _______ _______ _______ _______ ',  
+		    \ '|\     /(  ___  ( (    /(  __  \(  ____ (  ___  (       (  ____ \',  
+		    \ '| )   ( | (   ) |  \  ( | (  \  | (    \| (   ) | () () | (    \/',  
+		    \ '| (___) | (___) |   \ | | |   ) | (_____| |   | | || || | (__    ',  
+		    \ '|  ___  |  ___  | (\ \) | |   | (_____  | |   | | |(_)| |  __)   ',  
+		    \ '| (   ) | (   ) | | \   | |   ) |     ) | |   | | |   | | (      ',  
+		    \ '| )   ( | )   ( | )  \  | (__/  /\____) | (___) | )   ( | (____/\',  
+		    \ '|/     \|/     \|/    )_(______/\_______(_______|/     \(_______/',  
+		    \ '                                                                 ', 
+		    \ '         _______ _______ _______                                 ',  
+		    \ '|\     /(  ____ (  ____ (  ___  )                                ',  
+		    \ '| )   ( | (    \| (    \| (   ) |                                ',  
+		    \ '| |   | | (__   | |     | (___) |                                ',  
+		    \ '( (   ) |  __)  | | ____|  ___  |                                ',  
+		    \ ' \ \_/ /| (     | | \_  | (   ) |                                ',  
+		    \ '  \   / | (____/| (___) | )   ( |                                ',  
+		    \ '   \_/  (_______(_______|/     \|                                ',  
+		    \ '                                                                 ',  
+                    \ ]
     endif
 
     
