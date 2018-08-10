@@ -75,11 +75,14 @@
     " 快速注释
     Plug 'scrooloose/nerdcommenter'
 
+    " Formatter
+    Plug 'chiel92/vim-autoformat' 
     " post install (yarn install | npm install) then load plugin only for
     " editing supported files
     Plug 'prettier/vim-prettier', {
         \ 'do': 'yarn install',
         \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue']}
+
 
     " git
     Plug 'tpope/vim-fugitive'
@@ -217,6 +220,13 @@
 		    \ '   \_/  (_______(_______|/     \|                                ',  
 		    \ '                                                                 ',  
                     \ ]
+    endif
+
+    "----------------------------------------
+    " vim-autoformat
+    "----------------------------------------
+    if isdirectory(expand("~/.vim/plugged/vim-autoformat"))
+        autocmd FileType html noremap <buffer> <leader><c-f> :Autoformat<cr>
     endif
 
     
