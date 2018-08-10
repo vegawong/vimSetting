@@ -170,6 +170,8 @@
     "----------------------------------------
     if isdirectory(expand("~/.vim/plugged/vim-prettier"))
         nmap <leader><c-f> :Prettier<CR>
+        let g:prettier#config#tab_width = 4
+        let g:prettier#config#single_quote = 'true'
     endif
 
 
