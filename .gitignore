@@ -1,4 +1,4 @@
-bundle/*
+autoload
 plugged/*
 *.swp
 session/*
@@ -7,5 +7,4 @@ init.vim
 
 # vimdoc-cn ignore
 doc/*
-plugin/*
 syntax/*
