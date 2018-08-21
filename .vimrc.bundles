@@ -25,213 +25,146 @@
         endif
     " }
 
-    " let mapleader = ','
-    " let g:mapleader = ','
-    " let s:vim8 = has('patch-8.0.0039') && exists('*job_start')
-
 " }
 
 " Plugins {
     call plug#begin('~/.vim/plugged')
 
+    "----------------------------------------
+    " 中文文档
+    "----------------------------------------
     Plug 'yianwillis/vimcdoc'
 
-    " colorscheme
+    "----------------------------------------
+    " 颜色主题
+    "----------------------------------------
     Plug 'altercation/vim-colors-solarized'
+    let g:solarized_termcolors=256
+    " let g:solarized_termtrans=1
+    let g:solarized_contrast="normal"
+    let g:solarized_visibility="normal"
     Plug 'joshdick/onedark.vim'
 
-    " screen
+    "----------------------------------------
+    " screen, welcome page
+    "----------------------------------------
     Plug 'mhinz/vim-startify'
-    
-    Plug 'scrooloose/nerdtree'
-    Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-    
-    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    let g:startify_custom_header = [
+                \ '                                                                 ', 
+                \ '         _______ _       ______  _______ _______ _______ _______ ',  
+                \ '|\     /(  ___  ( (    /(  __  \(  ____ (  ___  (       (  ____ \',  
+                \ '| )   ( | (   ) |  \  ( | (  \  | (    \| (   ) | () () | (    \/',  
+                \ '| (___) | (___) |   \ | | |   ) | (_____| |   | | || || | (__    ',  
+                \ '|  ___  |  ___  | (\ \) | |   | (_____  | |   | | |(_)| |  __)   ',  
+                \ '| (   ) | (   ) | | \   | |   ) |     ) | |   | | |   | | (      ',  
+                \ '| )   ( | )   ( | )  \  | (__/  /\____) | (___) | )   ( | (____/\',  
+                \ '|/     \|/     \|/    )_(______/\_______(_______|/     \(_______/',  
+                \ '                                                                 ', 
+                \ '         _______ _______ _______                                 ',  
+                \ '|\     /(  ____ (  ____ (  ___  )                                ',  
+                \ '| )   ( | (    \| (    \| (   ) |                                ',  
+                \ '| |   | | (__   | |     | (___) |                                ',  
+                \ '( (   ) |  __)  | | ____|  ___  |                                ',  
+                \ ' \ \_/ /| (     | | \_  | (   ) |                                ',  
+                \ '  \   / | (____/| (___) | )   ( |                                ',  
+                \ '   \_/  (_______(_______|/     \|                                ',  
+                \ '                                                                 ',  
+                \ ]
 
-    Plug 'Yggdroot/LeaderF', { 'do': '.\install.sh' }
-    Plug 'dyng/ctrlsf.vim'
-    
-    Plug 'raimondi/delimitmate' " 自动补全成对符号 
-    Plug 'tpope/vim-surround'
-    Plug 'alvan/vim-closetag' 
-    Plug 'mattn/emmet-vim'   
 
-    " typescript
-    " REQUIRED: Add a syntax file. YATS is the best
+
+    "----------------------------------------
+    " 语法高亮
+    "----------------------------------------
     Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-    " For async completion
-    if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    else
-       Plug 'Shougo/deoplete.nvim'
-       Plug 'roxma/nvim-yarp'
-       Plug 'roxma/vim-hug-neovim-rpc'
-    endif
-    " For Denite features
-     Plug 'Shougo/denite.nvim'
+    Plug 'mxw/vim-jsx'
+    let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+
+
+    
+    "----------------------------------------
+    " 工具
+    "----------------------------------------
+    Plug 'scrooloose/nerdtree' " 目录树
+    autocmd StdinReadPre * let s:std_in=1
+    " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | Startify | exe 'NERDTree' argv()[0] | wincmd p | ene | endif       
+    autocmd VimEnter * if !argc() | Startify | NERDTree | wincmd w | endif
+    " 切换NERDTree显示，速记：file list
+    nnoremap <leader>fl :NERDTreeToggle<CR>
+    " nnoremap <c-o> :NERDTreeFind<CR>
+    let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+    let NERDTreeChDirMode=0
+    let NERDTreeQuitOnOpen=1
+    let NERDTreeMouseMode=2
+    let NERDTreeShowHidden=1
+    let NERDTreeKeepTreeInNewTab=1
+    let NERDTreeMinimalUI=1
+    let g:nerdtree_tabs_open_on_gui_startup=0
+    Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'  " 状态栏
+    let g:airline_powerline_fonts = 1  " 开启特殊符号
+    let g:airline#extensions#tabline#enabled = 1 " 开启tab名称显示
+    let g:airline#extensions#tabline#formatter = 'unique_tail' " 更改tabName显示格式, 同名时显示唯一区分
+    let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline_theme='onedark'
+    Plug 'Yggdroot/LeaderF', { 'do': '.\install.sh' } " 快速打开文件
+    Plug 'dyng/ctrlsf.vim' " 全局搜索
+    let g:ctrlsf_ackprg = 'ag'
+    Plug 'easymotion/vim-easymotion' " 快速光标跳转
+    nmap <leader>/ <plug>(easymotion-sn)
+    Plug 'scrooloose/nerdcommenter' " 快速注释
+    let g:NERDSpaceDelims = 1
+    Plug 'heavenshell/vim-jsdoc' " js doc
+    nmap <silent> <C-l> <Plug>(jsdoc) 
+    Plug 'Shougo/deoplete.nvim' | Plug 'Shougo/denite.nvim' " 异步自动完成
+    let g:deoplete#enable_at_startup = 1
+    Plug 'majutsushi/tagbar' " code outline & support tags
+
+    
+    "----------------------------------------
+    " 快速编辑
+    "----------------------------------------
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' " 代码片段
+    let g:UltiSnipsExpandTrigger = '<c-j>'
+    let g:UltiSnipsListSnippets = '<c-tab>' 
+    let g:UltiSnipsJumpForwardTrigger = '<c-j>' 
+    let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+    Plug 'raimondi/delimitmate' " 自动补全成对符号 
+    let delimitMate_expand_cr = 1 
+    let delimitMate_expand_space = 1
+    let delimitMate_matchpairs = "(:),[:],{:}"        
+    Plug 'tpope/vim-surround' " 快速替换,编辑成对符号
+    Plug 'alvan/vim-closetag' " 自动补全关闭tag 
+    let g:closetag_filetypes="xml,html,phtml,ejs,php,typescriptreact,javascriptreact"
+    Plug 'mattn/emmet-vim'  " html快速生成 
+
+
+    "----------------------------------------
+    " Typescript
+    "----------------------------------------
+    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}  " Typescript service
+
 
      
-    " 快速注释
-    Plug 'scrooloose/nerdcommenter'
-
-    " Formatter
+    "----------------------------------------
+    " 格式化
+    "----------------------------------------
     Plug 'chiel92/vim-autoformat' 
-    " post install (yarn install | npm install) then load plugin only for
-    " editing supported files
     Plug 'prettier/vim-prettier', {
         \ 'do': 'yarn install',
         \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue']}
+    nmap <leader><c-f> :Prettier<CR>
+    let g:prettier#config#tab_width = 4
+    let g:prettier#config#single_quote = 'true'
 
 
-    " git
+    "----------------------------------------
+    " git 相关
+    "----------------------------------------
     Plug 'tpope/vim-fugitive'
     Plug 'junegunn/gv.vim'
     Plug 'airblade/vim-gitgutter'
 
     call plug#end()
-" }
-
-
-" Plugin Settings {
-
-    "------------------------------------
-    " altercation/vim-colors-solarized
-    "------------------------------------
-    if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/plugged/vim-colors-solarized/colors/solarized.vim"))
-        let g:solarized_termcolors=256
-        " let g:solarized_termtrans=1
-        let g:solarized_contrast="normal"
-        let g:solarized_visibility="normal"
-    endif
-
-
-    "----------------------------------------
-    " scrooloose/nerdtree
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/nerdtree"))
-        autocmd StdinReadPre * let s:std_in=1
-        " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | Startify | exe 'NERDTree' argv()[0] | wincmd p | ene | endif       
-        autocmd VimEnter * if !argc() | Startify | NERDTree | wincmd w | endif
-
-        " 切换NERDTree显示，速记：file list
-        nnoremap <leader>fl :NERDTreeToggle<CR>
-        nnoremap <c-o> :NERDTreeFind<CR>
-
-        let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
-        let NERDTreeChDirMode=0
-        let NERDTreeQuitOnOpen=1
-        let NERDTreeMouseMode=2
-        let NERDTreeShowHidden=1
-        let NERDTreeKeepTreeInNewTab=1
-        let NERDTreeMinimalUI=1
-        let g:nerdtree_tabs_open_on_gui_startup=0
-
-    endif
-
-
-    "----------------------------------------
-    " vim-airline 
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/vim-airline"))
-        let g:airline_powerline_fonts = 1  " 开启特殊符号
-        let g:airline#extensions#tabline#enabled = 1 " 开启tab名称显示
-        let g:airline#extensions#tabline#formatter = 'unique_tail' " 更改tabName显示格式, 同名时显示唯一区分
-        let g:airline#extensions#tabline#buffer_nr_show = 1
-    endif
-
-    "----------------------------------------
-    " vim-airline-themes
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/vim-airline-themes"))
-        " let g:airline_soarized_bg='dark'
-        " let g:airline_theme='solarized'
-        let g:airline_theme='onedark'
-    endif
-
-    "----------------------------------------
-    " raimondi/delimitmate
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/delimitmate"))
-        let delimitMate_expand_cr = 1 
-        let delimitMate_expand_space = 1
-        let delimitMate_matchpairs = "(:),[:],{:}"        
-    endif
-
-    "----------------------------------------
-    " scrooloose/nerdcommenter
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/nerdcommenter"))
-        let g:NERDSpaceDelims = 1
-    endif
-
-    "----------------------------------------
-    " vim-prettier
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/vim-prettier"))
-        nmap <leader><c-f> :Prettier<CR>
-        let g:prettier#config#tab_width = 4
-        let g:prettier#config#single_quote = 'true'
-    endif
-
-
-    "----------------------------------------
-    " ctrlsf
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/ctrlsf.vim"))
-        " 要先安装ag, https://github.com/ggreer/the_silver_searcher
-        let g:ctrlsf_ackprg = 'ag'
-    endif
-
-    "----------------------------------------
-    " closetag
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/vim-closetag"))
-        let g:closetag_filetypes="xml,html,phtml,ejs,php,typescriptreact,javascriptreact"
-    endif
-
-    "----------------------------------------
-    " deoplete.nvim
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/deoplete.nvim"))
-        let g:deoplete#enable_at_startup = 1
-    endif
-
-    "----------------------------------------
-    " startify
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/"))
-        let g:startify_custom_header = [
-		    \ '                                                                 ', 
-		    \ '         _______ _       ______  _______ _______ _______ _______ ',  
-		    \ '|\     /(  ___  ( (    /(  __  \(  ____ (  ___  (       (  ____ \',  
-		    \ '| )   ( | (   ) |  \  ( | (  \  | (    \| (   ) | () () | (    \/',  
-		    \ '| (___) | (___) |   \ | | |   ) | (_____| |   | | || || | (__    ',  
-		    \ '|  ___  |  ___  | (\ \) | |   | (_____  | |   | | |(_)| |  __)   ',  
-		    \ '| (   ) | (   ) | | \   | |   ) |     ) | |   | | |   | | (      ',  
-		    \ '| )   ( | )   ( | )  \  | (__/  /\____) | (___) | )   ( | (____/\',  
-		    \ '|/     \|/     \|/    )_(______/\_______(_______|/     \(_______/',  
-		    \ '                                                                 ', 
-		    \ '         _______ _______ _______                                 ',  
-		    \ '|\     /(  ____ (  ____ (  ___  )                                ',  
-		    \ '| )   ( | (    \| (    \| (   ) |                                ',  
-		    \ '| |   | | (__   | |     | (___) |                                ',  
-		    \ '( (   ) |  __)  | | ____|  ___  |                                ',  
-		    \ ' \ \_/ /| (     | | \_  | (   ) |                                ',  
-		    \ '  \   / | (____/| (___) | )   ( |                                ',  
-		    \ '   \_/  (_______(_______|/     \|                                ',  
-		    \ '                                                                 ',  
-                    \ ]
-    endif
-
-    "----------------------------------------
-    " vim-autoformat
-    "----------------------------------------
-    if isdirectory(expand("~/.vim/plugged/vim-autoformat"))
-        autocmd FileType html noremap <buffer> <leader><c-f> :Autoformat<cr>
-    endif
-
-    
-
 " }
 

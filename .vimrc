@@ -105,6 +105,7 @@
 
 " Vim UI {
     set number " Line numbers on
+    set relativenumber " relative line number on
     set showmatch " Show matching brackets/parenthesis
     set incsearch " Find as you type search
     set hlsearch " Highlight search terms
