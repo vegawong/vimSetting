@@ -56,6 +56,7 @@ if exists('make')
     let g:make = 'make'
 endif
 Plug 'Shougo/vimproc.vim', {'do': g:make}
+Plug 'Shougo/deoplete.nvim' | Plug 'Shougo/denite.nvim'
 
 "" Vim-Session
 Plug 'xolox/vim-misc'
@@ -77,6 +78,12 @@ Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'joshdick/onedark.vim'
 
+"" Formater
+Plug 'chiel92/vim-autoformat'
+Plug 'prettier/vim-prettier', {
+    \ 'do': 'yarn install',
+    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue']}
+
 "*****************************************************************************
 "" Custom bundles
 "*****************************************************************************
@@ -93,6 +100,9 @@ Plug 'mattn/emmet-vim'
 "" Javascript Bundle
 Plug 'jelera/vim-javascript-syntax'
 
+" typescript
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 
 " php
 "" PHP Bundle
@@ -178,6 +188,7 @@ colorscheme onedark
 endif
 
 set mousemodel=popup
+set mouse=a
 set t_Co=256
 set guioptions=egmrti
 set gfn=Monospace\ 10
@@ -234,6 +245,20 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
+let g:airline_powerline_fonts = 1  " 开启特殊符号
+let g:airline#extensions#tabline#enabled = 1 " 开启tab名称显示
+" let g:airline#extensions#tabline#formatter = 'unique_tail' " 更改tabName显示格式, 同名时显示唯一区分
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_theme='onedark'
+
+" powerline symbols
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
 
 "*****************************************************************************
 "" Abbreviations
@@ -283,6 +308,9 @@ endif
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 let delimitMate_matchpairs = "(:),[:],{:}"
+
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
 
 "*****************************************************************************
 "" Functions
@@ -464,6 +492,9 @@ vnoremap K :m '<-2<CR>gv=gv
 "" Open current line on GitHub
 nnoremap <Leader>o :.Gbrowse<CR>
 
+"" prettier
+nmap <leader><c-f> :Prettier<CR>
+
 "*****************************************************************************
 "" Custom configs
 "*****************************************************************************
@@ -498,20 +529,9 @@ augroup END
 "" Convenience variables
 "*****************************************************************************
 
-" vim-airline
-let g:airline_powerline_fonts = 1  " 开启特殊符号
-let g:airline#extensions#tabline#enabled = 1 " 开启tab名称显示
-" let g:airline#extensions#tabline#formatter = 'unique_tail' " 更改tabName显示格式, 同名时显示唯一区分
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_theme='onedark'
-
-" powerline symbols
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+" prettier
+let g:prettier#config#tab_width = 4
+let g:prettier#config#single_quote = 'true'
 " endif
 
 
